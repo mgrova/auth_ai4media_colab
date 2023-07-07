@@ -28,18 +28,18 @@ git clone https://bitbucket.org/fadacatec-ondemand/airsim && cd airsim
 
 Once the AirSim plugin has been built, it is time to add it to our custom Unreal Project. To do this, we must create the plugins folder inside our custom project and copy the contents of the folder "Unreal/Plugins/Airsim" to the plugins folder of our project.
 
-In this particular case, the path to our custom project is:  **/home/upia/Documents/Unreal\ Projects/TestProject**.
+In this particular case, the path to our custom project is:  **/home/aiiacvmllab/Documents/Unreal\ Projects/TestProject**.
 
 ```
-mkdir -p /home/upia/Documents/Unreal\ Projects/TestProject/Plugins
-rsync -a --delete Unreal/Plugins/AirSim /home/upia/Documents/Unreal\ Projects/TestProject/Plugins
+mkdir -p /home/aiiacvmllab/Documents/Unreal\ Projects/TestProject/Plugins
+rsync -a --delete Unreal/Plugins/AirSim /home/aiiacvmllab/Documents/Unreal\ Projects/TestProject/Plugins
 ```
 
 Once the plugin has been added, it is time to re-run the UE4 Editor to make sure everything went correctly. 
 To do this, we use the following command:
 ```
 cd /home/catec/UnrealEngine && \
-./Engine/Binaries/Linux/UE4Editor /home/upia/Documents/Unreal\ Projects/TestProject/TestProject.uproject
+./Engine/Binaries/Linux/UE4Editor /home/aiiacvmllab/Documents/Unreal\ Projects/TestProject/TestProject.uproject
 ```
 
 If after executing it the following pop-up appears indicating that the plugin must be rebuilt, we must use the *UnrealBuildTool*.
@@ -50,7 +50,7 @@ This tool needs to be passed as argument the path to the uproject of our custom 
 
 ```
 cd /home/catec/UnrealEngine && \
-./Engine/Binaries/ThirdParty/Mono/Linux/bin/mono Engine/Binaries/DotNET/UnrealBuildTool.exe Development Linux -Project=/home/upia/Documents/Unreal\ Projects/TestProject/TestProject.uproject -TargetType=Editor -Progress
+./Engine/Binaries/ThirdParty/Mono/Linux/bin/mono Engine/Binaries/DotNET/UnrealBuildTool.exe Development Linux -Project=/home/aiiacvmllab/Documents/Unreal\ Projects/TestProject/TestProject.uproject -TargetType=Editor -Progress
 ```
 
 After executing this command, we will run the editor again with our project. If everything went well, the UE4 editor will open normally.

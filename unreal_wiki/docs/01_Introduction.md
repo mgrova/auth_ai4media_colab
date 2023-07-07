@@ -149,7 +149,7 @@ Another possible option is that, instead of directly associating the enviroment 
 When the download completes successfully, it is time to open the unreal editor. To do this, instead of running it as before, we will also pass the path to the project we want to open. This is convenient so that it takes less time to open the IDE. 
 
 ```
-/Engine/Binaries/Linux/UE4Editor /home/upia/Documents/Unreal\ Projects/TestProject/TestProject.uproject
+/Engine/Binaries/Linux/UE4Editor /home/aiiacvmllab/Documents/Unreal\ Projects/TestProject/TestProject.uproject
 ```
 
 Once the editor opens, at the bottom we have the "Content Browser". To open the demonstration map of the environment we have attached, we navigate to 
