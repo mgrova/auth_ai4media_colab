@@ -29,6 +29,8 @@ git clone -b 4.27-plus https://github.com/EpicGames/UnrealEngine && cd UnrealEng
 make
 ```
 
+If you have some errors during the building process, its necessary to modify two lines in the source code. Basically, you only have to comment the following lines: [VulkanDevice Stuff](https://github.com/EpicGames/UnrealEngine/blob/4.27-plus/Engine/Source/Runtime/VulkanRHI/Private/VulkanDevice.cpp#L194) and [CanvasItem Stuff](https://github.com/EpicGames/UnrealEngine/blob/4.27-plus/Engine/Source/Runtime/Engine/Private/UserInterface/CanvasItem.cpp#L382). Once you have been commented these lines, you can continue re-run building of the engine.
+
 After having compiled the editor, it is convenient to test that it runs correctly. To do this we will use the following command inside of the Unreal Engine folder:
 ```
 ./Engine/Binaries/Linux/UE4Editor
