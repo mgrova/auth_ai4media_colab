@@ -188,9 +188,4 @@ if __name__ == "__main__":
     parser.add_argument("--use_poses_file", action="store_true", default=False)
 
     args = parser.parse_args()
-    # TODO: Configure sensors and cameras in settings.json
-
     main(args)
-
-
-

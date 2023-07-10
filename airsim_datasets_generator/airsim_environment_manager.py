@@ -62,7 +62,7 @@ class AirsimEnvironmentManager:
         success = self.__client.simSetObjectPose(object_name, pose, teleport=True)
         if (not success):
             print("Unable to get object. Try updating name")
-            return False
+            return success
 
         print(f"Moved object '{object_name}' to position: {desired_position} with orientation: {desired_ea_deg}")
     
@@ -95,6 +95,7 @@ class AirsimEnvironmentManager:
         res = self.__client.simSetObjectMaterialFromTexture(object_name, texture_path)
         if (not res):
             print(f"Unable to change texture to object: {object_name}")
+            return res
 
         print(f"Changed texture of object '{object_name}' to {texture_path}")
         return res
@@ -108,6 +109,7 @@ class AirsimEnvironmentManager:
         res = self.__client.simSetSegmentationObjectID(object_name, object_new_id, is_regex)
         if (not res):
             print(f"Unable to change segmentation id to object: {object_name}")
+            return res
 
         print(f"Change segmentation id of object '{object_name}' to {object_new_id}")
         return res
