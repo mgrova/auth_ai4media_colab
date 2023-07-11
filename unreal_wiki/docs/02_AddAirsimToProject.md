@@ -16,7 +16,7 @@ In what follows in this guide, the flight controller firmware will be employed u
 First, you must download AirSim from the custom version you have. After that, we follow the next steps to configure and compile it:
 
 ```
-git clone https://bitbucket.org/fadacatec-ondemand/airsim && cd airsim
+git clone https://github.com/microsoft/AirSim && cd AirSim
 
 ./setup.sh
 
@@ -38,7 +38,7 @@ rsync -a --delete Unreal/Plugins/AirSim /home/aiiacvmllab/Documents/Unreal\ Proj
 Once the plugin has been added, it is time to re-run the UE4 Editor to make sure everything went correctly. 
 To do this, we use the following command:
 ```
-cd /home/catec/UnrealEngine && \
+cd /home/aiiacvmllab/UnrealEngine && \
 ./Engine/Binaries/Linux/UE4Editor /home/aiiacvmllab/Documents/Unreal\ Projects/TestProject/TestProject.uproject
 ```
 
@@ -49,7 +49,7 @@ If after executing it the following pop-up appears indicating that the plugin mu
 This tool needs to be passed as argument the path to the uproject of our custom project.
 
 ```
-cd /home/catec/UnrealEngine && \
+cd /home/aiiacvmllab/UnrealEngine && \
 ./Engine/Binaries/ThirdParty/Mono/Linux/bin/mono Engine/Binaries/DotNET/UnrealBuildTool.exe Development Linux -Project=/home/aiiacvmllab/Documents/Unreal\ Projects/TestProject/TestProject.uproject -TargetType=Editor -Progress
 ```
 
