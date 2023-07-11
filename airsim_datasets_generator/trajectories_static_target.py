@@ -120,8 +120,6 @@ if __name__ == "__main__":
         
         index = index + 1
 
-    print()
-
     # ax.set_xlim3d(min([row[0] for row in xt_wcs]) - 5, max([row[0] for row in xt_wcs]) + 5)
     # ax.set_ylim3d(min([row[1] for row in xt_wcs]) - 5, max([row[1] for row in xt_wcs]) + 5)
     # ax.set_zlim3d(min([row[2] for row in xt_wcs]) - 5, max([row[2] for row in xt_wcs]) + 5)

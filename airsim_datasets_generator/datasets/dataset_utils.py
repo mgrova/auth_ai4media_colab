@@ -7,18 +7,20 @@ from scipy.spatial.transform import Rotation as R
 import numpy as np
 import math 
 
+"""
+Covert a quaternion into a full three-dimensional rotation matrix.
+
+Parameters
+----------
+Input
+:param Q: A 4 element array representing the quaternion (q0,q1,q2,q3) 
+
+Output
+:return: A 3x3 element matrix representing the full 3D rotation matrix. 
+            This rotation matrix converts a point in the local reference 
+            frame to a point in the global reference frame.
+"""
 def quaternion_rotation_matrix(Q):
-    """
-    Covert a quaternion into a full three-dimensional rotation matrix.
- 
-    Input
-    :param Q: A 4 element array representing the quaternion (q0,q1,q2,q3) 
- 
-    Output
-    :return: A 3x3 element matrix representing the full 3D rotation matrix. 
-             This rotation matrix converts a point in the local reference 
-             frame to a point in the global reference frame.
-    """
     # Extract the values from Q
     q0 = Q[0]
     q1 = Q[1]
@@ -47,13 +49,15 @@ def quaternion_rotation_matrix(Q):
                             
     return rot_matrix
 
-
+'''
+Create folder to save AirSim dataset
+'''
 def create_airsim_dataset_folder(dataset_folder):
     if not os.path.exists(dataset_folder):
         os.makedirs(dataset_folder)
         os.makedirs(dataset_folder + '/rgb')
-        os.makedirs(dataset_folder + '/depth')
-        # os.makedirs(dataset_folder + '/segmentation')
+        # os.makedirs(dataset_folder + '/depth')
+        os.makedirs(dataset_folder + '/segmentation')
         file = open(dataset_folder + '/poses.txt', 'w+')
         file.write("#id x y z qw qx qy qz\n")
         file.close()
@@ -62,7 +66,9 @@ def create_airsim_dataset_folder(dataset_folder):
         file_intrinsics.close()
     print("Saving dataset to {}".format(dataset_folder))
 
-
+'''
+Create file to save poses there
+'''
 def create_poses_file(file_path):
     if (os.path.isfile(file_path)):
         os.remove(file_path)
@@ -71,11 +77,13 @@ def create_poses_file(file_path):
     file.write("#x y z roll_rad pitch_rad yaw_rad\n")
     file.close()
 
-
-def save_pose_to_file(poses_file_path, position, orientation_gimbal):
+'''
+Save 6DoF pose in format: 'x y z roll_rad pitch_rad yaw_rad' to specific file
+'''
+def save_pose_to_file(poses_file_path, position, orientation):
     with open(poses_file_path, "a") as file:
         file.write("{} {} {} {} {} {}\n".format(position[0], position[1], position[2], 
-                                                orientation_gimbal[0], orientation_gimbal[1], orientation_gimbal[2]))
+                                                orientation[0], orientation[1], orientation[2]))
 
 
 '''

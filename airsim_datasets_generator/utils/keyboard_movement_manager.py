@@ -3,9 +3,15 @@
 from pynput import keyboard
 import numpy as np
 import os 
+import sys
 
 from threading import Lock
 from copy import deepcopy
+
+uppath = lambda _path, n: os.sep.join(_path.split(os.sep)[:-n])
+sys.path.append(uppath(__file__, 2))
+
+from datasets.dataset_utils import create_poses_file, save_pose_to_file
 
 '''
 Class to generate 6DoF pose using keyboard.
@@ -17,7 +23,7 @@ Class to generate 6DoF pose using keyboard.
 +yaw, -yaw     -> E, R
 '''
 class KeyboardController():
-    def __init__(self, position_step = 1.0, angle_step = 5.0):
+    def __init__(self, position_step = 1.0, angle_step = 5.0, keyboard_traj_dir = os.getcwd(), continuous_save = False):
         self.__position_step  = position_step
         self.__angle_step_deg = angle_step
 
@@ -25,6 +31,9 @@ class KeyboardController():
         # x, y, z, roll_deg, pitch_deg, yaw_deg
         self.__pose = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
         self.__poses_array = []
+
+        self.__traj_dir = keyboard_traj_dir
+        self.__continuous_save = continuous_save
 
         # Collect events until released
         self.__listener = keyboard.Listener(on_press=self.__on_press, on_release=self.__on_release)
@@ -34,21 +43,18 @@ class KeyboardController():
 
     def __del__(self):
         self.__listener.join()
+    
+        if (len(self.__poses_array) == 0):
+            return
+        
+        traj_path = self.__traj_dir + '/keyboard_poses.txt'
+        create_poses_file(traj_path)
+        for pose in self.__poses_array:
+            position    = pose[0:3]
+            orientation = [np.deg2rad(pose[3]), np.deg2rad(pose[4]), np.deg2rad(pose[5])]
+            save_pose_to_file(traj_path, position, orientation)
 
-        if (len(self.__poses_array) > 0):
-            self.__save_poses_to_file(self.__poses_array)
-
-    def __save_poses_to_file(self, poses_list):
-        file_path = os.getcwd() + '/../trajectory_poses.txt'
-        if (os.path.isfile(file_path)):
-            os.remove(file_path)
-        file = open(file_path, 'w+')
-        file.write("#Coordinates in World Coordinate System\n")
-        file.write("#x y z roll_rad pitch_rad yaw_rad\n")
-        for pose in poses_list:
-            file.write("{} {} {} {} {} {}\n".format(pose[0], pose[1], pose[2], 
-                                                    np.deg2rad(pose[3]), np.deg2rad(pose[4]), np.deg2rad(pose[5])))
-        file.close()
+        print(f"Saved trajectory generated to file '{traj_path}'")
 
 
     def listener_alive(self) -> bool:
@@ -96,11 +102,16 @@ class KeyboardController():
             elif x == 'r':
                 self.__pose[5] -= self.__angle_step_deg
             # Use enter to save pose to generate path
-            elif x == 'Key.enter':
+            elif x == 'Key.enter' and not self.__continuous_save:
                 print(f"Saved position ({self.__pose[0]}, {self.__pose[1]}, {self.__pose[2]}) RPY: ({self.__pose[3]}, {self.__pose[4]}, {self.__pose[5]})")
                 self.__poses_array.append(deepcopy(self.__pose))
             else:
                 pass
+
+            if self.__continuous_save:
+                print(f"Saved position ({self.__pose[0]}, {self.__pose[1]}, {self.__pose[2]}) RPY: ({self.__pose[3]}, {self.__pose[4]}, {self.__pose[5]})")
+                self.__poses_array.append(deepcopy(self.__pose))
+                
         self.__received_new_pose = True
 
     def __on_release(self, key):

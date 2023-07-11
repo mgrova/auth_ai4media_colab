@@ -160,7 +160,10 @@ def main(args):
     print("Created AirsimDatasetManager")
 
     if (args.use_poses_file):
-        poses = read_trajectory_poses_from_file(os.getcwd() + '/trajectory_poses.txt')
+        if (args.poses_path == ""):
+            args.poses_path = os.getcwd() + '/trajectory_poses.txt'
+        
+        poses = read_trajectory_poses_from_file(args.poses_path)
         for pose in poses:
             curr_position = airsim.Vector3r(pose[0], pose[1], -1.0 * pose[2])
             manager.update_vehicle_pose(curr_position, pose[3], pose[4], pose[5])
@@ -169,7 +172,7 @@ def main(args):
             # Used to avoid overload API and get noisy images
             time.sleep(0.1)
     else:
-        controller = KeyboardController()
+        controller = KeyboardController(1.0, 5.0, os.getcwd(), False)
         while(controller.listener_alive()):
             if (controller.received_new_pose()):
                 new_pose = controller.get_pose()
@@ -186,6 +189,7 @@ if __name__ == "__main__":
     parser.add_argument("--save_dataset", action="store_true", default=False)
     parser.add_argument('--dataset_folder', type=str, default=os.getcwd())
     parser.add_argument("--use_poses_file", action="store_true", default=False)
+    parser.add_argument("--poses_path",  type=str, default="")
 
     args = parser.parse_args()
     main(args)
