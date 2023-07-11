@@ -16,30 +16,27 @@ sys.path.append(uppath(__file__, 2))
 from datasets.dataset_utils import read_trajectory_poses_from_file, save_pose_to_file, create_poses_file
 
 
-def __create_vec_btw_poses(curr_pos, tgt_pos, num_steps):
+def __create_vec_btw_points(curr_point, tgt_point, num_steps):
     # Calculate step size for each axis
-    step_x = (tgt_pos[0] - curr_pos[0]) / num_steps
-    step_y = (tgt_pos[1] - curr_pos[1]) / num_steps
-    step_z = (tgt_pos[2] - curr_pos[2]) / num_steps
+    step_p1 = (tgt_point[0] - curr_point[0]) / num_steps
+    step_p2 = (tgt_point[1] - curr_point[1]) / num_steps
+    step_p3 = (tgt_point[2] - curr_point[2]) / num_steps
 
-    movement_vec = []
-    movement_vec.append(curr_pos)
+    vec = []
+    vec.append(curr_point)
 
-    fixed_roll, fixed_pitch, fixed_yaw = curr_pos[3], curr_pos[4], curr_pos[5]
-
-    current_x = curr_pos[0]
-    current_y = curr_pos[1]
-    current_z = curr_pos[2]
+    p1 = curr_point[0]
+    p2 = curr_point[1]
+    p3 = curr_point[2]
     for _ in range(num_steps):
-        # Increment position
-        current_x += step_x
-        current_y += step_y
-        current_z += step_z
-        movement_vec.append([current_x, current_y, current_z, fixed_roll, fixed_pitch, fixed_yaw])
+        p1 += step_p1
+        p2 += step_p2
+        p3 += step_p3
+        vec.append([p1, p2, p3])
 
-    movement_vec.append(tgt_pos)
+    vec.append(tgt_point)
 
-    return movement_vec
+    return vec
 
 def interpolate_trajectory(input_traj_path, output_traj_path, desired_len):
     poses = read_trajectory_poses_from_file(input_traj_path)
@@ -51,17 +48,23 @@ def interpolate_trajectory(input_traj_path, output_traj_path, desired_len):
     interpolated_traj = []
     step_between_poses = int(desired_len / (len(poses) - 1))
     
-    # NOTE: We are going to keep orientation during positions interpolation
     curr_pose = poses.pop(0)
+    curr_pos = curr_pose[0:3]
+    curr_ori = curr_pose[3:6]
     for pose in poses:
-        movement_vec = __create_vec_btw_poses(curr_pose, pose, step_between_poses)
-        curr_pose = movement_vec.pop(-1)
+        position_vec = __create_vec_btw_points(curr_pos, pose[0:3], step_between_poses)
+        curr_pos = position_vec.pop(-1)
+
+        orientation_vec = __create_vec_btw_points(curr_ori, pose[3:6], step_between_poses)
+        curr_ori = orientation_vec.pop(-1)
+
+        movement_vec = list(zip(position_vec, orientation_vec))
         interpolated_traj = interpolated_traj + movement_vec
 
     # Save interpolated trajectory to a file 
     create_poses_file(output_traj_path)
-    for pose in interpolated_traj:
-        save_pose_to_file(output_traj_path, pose[0:3], pose[3:6])
+    for position, orientation in interpolated_traj:
+        save_pose_to_file(output_traj_path, position, orientation)
 
     print(f"Saved trajectory generated with {len(interpolated_traj)} poses to file '{output_traj_path}'")
 
