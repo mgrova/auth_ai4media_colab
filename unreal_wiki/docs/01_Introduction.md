@@ -160,3 +160,19 @@ Once the editor opens, at the bottom we have the "Content Browser". To open the 
 ![editor_custom_world](./images/editor_custom_world.png)
 
 With this, we already have a custom project with the simulation environment we want.
+
+## Pro Tip!
+
+Once everything is installed, Its totally recommented add this alias to your .bashrc (or .zshrc) to simplify your life during the usage of Unreal:
+
+```
+# Alias to run engine and launcher
+alias UE4Editor="cd /home/$USER/Documents/UnrealEngine && ./Engine/Binaries/Linux/UE4Editor"
+alias UE4Launcher="cd /home/$USER/Documents/UE4Launcher && npm start"
+
+# Alias to open UE4 project
+alias UE4Editor_project_exec='f() { cd /home/$USER/Documents/UnrealEngine && ./Engine/Binaries/Linux/UE4Editor $1 };f'
+
+# Alias to autofix UE4 project
+alias UE4Editor_project_autofix='f() { cd /home/$USER/Documents/UnrealEngine &&  ./Engine/Binaries/ThirdParty/Mono/Linux/bin/mono Engine/Binaries/DotNET/UnrealBuildTool.exe Development Linux -Project=$1 -TargetType=Editor -Progress };f'
+```
