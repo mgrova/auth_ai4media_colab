@@ -22,7 +22,6 @@ def read_camera_parameters(filename):
 positions = []
 eas = []
 
-# positions_folder = '/home/mmontes/Projects/AUTH/auth_visit_scripts/dataset_2023-05-23_17:15:09/ImMPI_format/Cams'
 positions_folder = '/home/mmontes/Documents/AUTH/whu_mvs/scene_000/Cams'
 for root, _, files in os.walk(os.path.abspath(positions_folder)):
     files.sort()
@@ -50,7 +49,6 @@ for pos, ea in zip(positions, eas):
     i+=1
 
 # # # Set the axis limits
-# ax.set_xlim([-3500, -2900])
 ax.set_ylim([500, 1000])
 ax.set_zlim([1260, 1280])
 

@@ -8,7 +8,7 @@ from mpl_toolkits.mplot3d import Axes3D
 
 from visualization.visualization_utils import plot_3d_axis, plot_frustrum
 from datasets.dataset_utils import create_poses_file, save_pose_to_file
-from trajectories.trajectory_generator import *
+from shot_type_trajectories.trajectory_generator import *
 
 from argparse import ArgumentParser
 
@@ -40,9 +40,6 @@ def obtain_orbit_trajectory() -> list:
     return (p_tgt_wcs, xt_wcs, gimbal_ea_wcs)
 
 def obtain_flyby_trajectory() -> list:
-    # p_tgt_wcs = np.array([-66.7, 66.7, 10.0])
-    # v_tgt_wcs = np.array([0.0, 0.0, 0.0])
-    # x0_wcs    = np.array([50.0, 5.0, 50.0])
     p_tgt_wcs = np.array([110.0, 8.0, 20.0])
     v_tgt_wcs = np.array([0.0, 0.0, 0.0])
     x0_wcs    = np.array([150.0, -50.0, 20.0])
@@ -98,9 +95,7 @@ if __name__ == "__main__":
     else:
         print("The trajectory type {} is not implemented yet".format(args.traj_type))
         exit()
-    
-    print("The trajectory type is {} with lenght {}".format(args.traj_type, len(xt_wcs)))
-    
+        
     # Create the file to save the poses
     trajectory_poses_file = args.output_file_path + '/trajectory_poses.txt'
     create_poses_file(trajectory_poses_file)
@@ -116,13 +111,10 @@ if __name__ == "__main__":
         
         gimbal_ori[1] = gimbal_ori[1] + math.pi/2.0
         plot_3d_axis(ax, uav_pos, gimbal_ori, scale=3.0)
-        # plot_frustrum(ax, uav_pos, gimbal_ori, 1.0)
         
         index = index + 1
 
-    # ax.set_xlim3d(min([row[0] for row in xt_wcs]) - 5, max([row[0] for row in xt_wcs]) + 5)
-    # ax.set_ylim3d(min([row[1] for row in xt_wcs]) - 5, max([row[1] for row in xt_wcs]) + 5)
-    # ax.set_zlim3d(min([row[2] for row in xt_wcs]) - 5, max([row[2] for row in xt_wcs]) + 5)
+    print(f"Saved trajectory of type '{args.traj_type}' with lenght {len(xt_wcs)} in {trajectory_poses_file}")
 
     # Set labels and title
     ax.set_xlabel('X')
