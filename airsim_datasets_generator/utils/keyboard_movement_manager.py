@@ -21,6 +21,9 @@ Class to generate 6DoF pose using keyboard.
 
 +pitch, -pitch -> W, S
 +yaw, -yaw     -> E, R
+
+
+Enter -> Save current pose to file
 '''
 class KeyboardController():
     def __init__(self, position_step = 1.0, angle_step = 5.0, keyboard_traj_dir = os.getcwd(), continuous_save = False):

@@ -82,8 +82,8 @@ Save 6DoF pose in format: 'x y z roll_rad pitch_rad yaw_rad' to specific file
 '''
 def save_pose_to_file(poses_file_path, position, orientation):
     with open(poses_file_path, "a") as file:
-        file.write("{0:.6g} {0:.6g} {0:.6g} {0:.6g} {0:.6g} {0:.6g}\n".format(position[0], position[1], position[2], 
-                                                                              orientation[0], orientation[1], orientation[2]))
+        file.write("{} {} {} {} {} {}\n".format(position[0], position[1], position[2], 
+                                                orientation[0], orientation[1], orientation[2]))
 
 
 '''

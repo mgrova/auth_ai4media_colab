@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 
-import os
 from argparse import ArgumentParser
 
-from datasets.dataset_format_immpi  import convert_dataset_to_ImMPI_format
-from datasets.dataset_format_hdf5   import convert_dataset_to_hdf5_format
-from datasets.dataset_format_f2nerf import convert_dataset_to_f2nerf_format
+from dataset_format_immpi  import convert_dataset_to_ImMPI_format
+from dataset_format_hdf5   import convert_dataset_to_hdf5_format
+from dataset_format_f2nerf import convert_dataset_to_f2nerf_format
 
 if __name__ == "__main__":
     parser = ArgumentParser(description="Convert a dataset to different formats")

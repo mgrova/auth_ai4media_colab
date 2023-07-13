@@ -15,7 +15,7 @@ import numpy as np
 Class to configure environment in Unreal Engine using AirSim API.
 '''
 class AirsimEnvironmentManager:
-    def __init__(self, args) -> None:
+    def __init__(self) -> None:
         client = airsim.VehicleClient()
         client.confirmConnection()
         self.__client = client
@@ -23,7 +23,7 @@ class AirsimEnvironmentManager:
     '''
     Enable weather simulation
     '''
-    def enable_weather(self):
+    def enable_weather(self) -> None:
         self.__client.simEnableWeather(True)
 
     '''
@@ -39,8 +39,8 @@ class AirsimEnvironmentManager:
             Fog = 7
             Enabled = 8
     '''
-    def change_weather(self, weather_param, percentage):
-        if percentage not in range(0.0, 1.0):
+    def change_weather(self, weather_param, percentage) -> None:
+        if percentage < 0.0 or percentage > 1.0:
             print('Invalid value')
             return
         self.__client.simSetWeatherParameter(weather_param, percentage)
@@ -70,7 +70,7 @@ class AirsimEnvironmentManager:
     Move airsim object by a predefined path.
     Path format should be: x, y, z, roll_deg, pitch_deg, yaw_deg
     '''
-    def move_object_by_path(self, object_name, path_array, sleep_time):
+    def move_object_by_path(self, object_name, path_array, sleep_time) -> None:
         for pose in path_array:
             if (not len(pose) == 6):
                 print("Invalid pose lenght")
@@ -105,7 +105,7 @@ class AirsimEnvironmentManager:
     Change airsim object segmentation ID. The name input will be a regex function or a unique name.
     Read the following part of the wiki: https://microsoft.github.io/AirSim/image_apis/#segmentation
     '''
-    def change_object_segmentation_id(self, object_name, object_new_id, is_regex=False):
+    def change_object_segmentation_id(self, object_name, object_new_id, is_regex=False) -> bool:
         res = self.__client.simSetSegmentationObjectID(object_name, object_new_id, is_regex)
         if (not res):
             print(f"Unable to change segmentation id to object: {object_name}")
@@ -125,9 +125,13 @@ def main(args):
         manager.change_weather(airsim.WeatherParameter.Fog, 0.2)
 
     if (args.move_object):
-        object_name_regex = "pipe_[\w]*"
-        object_new_id = 22
-        manager.change_object_segmentation_id(object_name_regex, object_new_id, True)
+        object_name = "pipe_long_1"
+        path_array = []
+        path_array.append([0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
+        path_array.append([0.0, 0.0, 2.0, 0.0, 0.0, 0.0])
+        path_array.append([0.0, 0.0, 4.0, 0.0, 0.0, 0.0])
+        path_array.append([0.0, 0.0, 6.0, 0.0, 0.0, 0.0])
+        manager.move_object_by_path(object_name, path_array, 1.0)
 
     if (args.change_segmentation_id):
         object_name_regex = "pipe_[\w]*"
@@ -145,7 +149,6 @@ def main(args):
 
 
 if __name__ == "__main__":
-    # Implement argument parser to select stuff
     parser = ArgumentParser(description="Configure Airsim environment")
     parser.add_argument("--sim_weather", action="store_true", default=False)
     parser.add_argument("--move_object", action="store_true", default=False)
