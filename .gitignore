@@ -1,2 +1,5 @@
-./*/__pycache__/*
-./*/*/__pycache__/*
+airsim_datasets_generator/*/__pycache__/*
+airsim_datasets_generator/*/*/__pycache__/*
+
+airsim_datasets_generator/dataset_*
+airsim_datasets_generator/*.txt
