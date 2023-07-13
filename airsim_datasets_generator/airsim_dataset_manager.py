@@ -142,7 +142,7 @@ class AirsimDatasetManager:
     '''
     Update pose of simulated camera pose
     ''' 
-    def update_vehicle_pose(self, position, roll_rad, pitch_rad, yaw_rad):
+    def update_vehicle_pose(self, position, roll_rad, pitch_rad, yaw_rad) -> None:
         self.__client.simSetVehiclePose(
             airsim.Pose(position, airsim.to_quaternion(pitch_rad, roll_rad, yaw_rad)), 
             True)

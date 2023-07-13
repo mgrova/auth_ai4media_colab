@@ -34,7 +34,7 @@ def visualize_3d_trajectory_from_path(traj_path):
     
     ax.set_xlim3d(min([row[0] for row in poses]) - 5, max([row[0] for row in poses]) + 5)
     ax.set_ylim3d(min([row[1] for row in poses]) - 5, max([row[1] for row in poses]) + 5)
-    ax.set_zlim3d(min([row[2] for row in poses]), max([row[2] for row in poses]) + 5)
+    ax.set_zlim3d(0.0, max([row[2] for row in poses]) + 5)
 
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
