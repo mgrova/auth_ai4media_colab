@@ -1,7 +1,3 @@
-[submodule "project/relformer"]
-	path = project/relformer
-	url = https://github.com/mgrova/relformer
-	branch = ros_node
 [submodule "project/Look-Outside-Room"]
 	path = project/Look-Outside-Room
 	url = https://github.com/mgrova/Look-Outside-Room

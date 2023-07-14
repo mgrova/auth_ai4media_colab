@@ -1,8 +1,8 @@
 # AI4MEDIA AUTH VISIT 
 
-This repo contains all the stuff developed during the AI4Media secondment.
+This repo contains all the stuff developed during the AI4Media collaboration between AUTH and CATEC.
 
-It contains three folders: 
+It contains three main folders: 
 
 * **airsim_dataset_generator**: It contains all the necessary tools for communicating with Airsim using Python as well as for generating trajectories or visualising them. This will simplify the task of generating datasets for computer vision.
 

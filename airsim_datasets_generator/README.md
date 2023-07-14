@@ -52,3 +52,46 @@ The most relevant scripts of this tool are described below. All of them have imp
 * **utils/trajectory_visualizer.py**: Allows to visualize in 3D a trajectory given as an input its path.
 
 In addition, there is a large subset of tools for visualizing and converting datasets to the models format evaluated during the research. But for the sake of simplicity, we will not go into it here.
+
+## Dataset format
+
+Below is the format of the dataset that is generated when the *--save_dataset* argument is passed to the script [airsim_dataset_manager](airsim_dataset_manager.py).
+
+### Folders distribution
+
+The following is the distribution of folders for dataset generated:
+
+```
+dataset_<current_date>
+├── intrinsics.txt
+├── poses.txt
+├── rgb
+│   ├── rgb_*.png
+    └── ...
+└── segmentation
+    ├── segmentation_0000.png
+    └── ...
+└── depth
+    ├── depth_*.png
+    └── ...
+```
+
+### Intrinsic parameters file (intrinsics.txt)
+
+It will contain the a 3x3 matrix with the intrisics parameters of the simulated camera:
+
+```
+#[fx 0 cx; 0 fy cy; 0 0 1]
+641.07   0.0  640.0
+  0.0  641.07 360.0
+  0.0    0.0    1.0
+```
+
+### Extrinsics parameters file (poses.txt)
+
+It will contain the extrinsics parameters of the simulated camera respect of the coordinate system defined by 'PlayerStart' in Unreal Engine.
+
+```
+#id x y z qw qx qy qz
+0000 0.0 0.0 0.0 0.0 0.0 0.0
+```
