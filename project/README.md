@@ -74,13 +74,13 @@ torchrun --nproc_per_node=1 --master_port=14900 main.py --dataset custom --name 
 
 ## Usage of the tool with ROS nodes
 
-Using the following ROS launch file: [lookout_infer.launch](./Look-Outside-Room/ros/launch/lookout_infer.launch), the proposed tool can be executed. Make sure to set all parameters to those that fit your data and needs. 
+Using the following ROS launch file: [lookout_infer.launch](https://github.com/mgrova/Look-Outside-Room/blob/ros_node/ros/launch/lookout_infer.launch), the proposed tool can be executed. Make sure to set all parameters to those that fit your data and needs. 
 
 Using this launch file, two different nodes will be executed:
 
-* **image_and_poses_pub_node**: Regarding the poses from which you want to synthesise new views, it will read text files in the [predefined format](../airsim_datasets_generator/README.md#dataset-format) and publish them in a ROS topic (defined in the launch file) of type [PoseArray](http://docs.ros.org/en/noetic/api/geometry_msgs/html/msg/PoseArray.html). Regarding the initial image, it will also be read from a local path and published throw a ROS topic (defined in the launch file) of type [Image](http://docs.ros.org/en/noetic/api/sensor_msgs/html/msg/Image.html).
+* [**image_and_poses_pub_node**](https://github.com/mgrova/Look-Outside-Room/blob/ros_node/ros/scripts/image_and_poses_pub_node.py): Regarding the poses from which you want to synthesise new views, it will read text files in the [predefined format](../airsim_datasets_generator/README.md#dataset-format) and publish them in a ROS topic (defined in the launch file) of type [PoseArray](http://docs.ros.org/en/noetic/api/geometry_msgs/html/msg/PoseArray.html). Regarding the initial image, it will also be read from a local path and published throw a ROS topic (defined in the launch file) of type [Image](http://docs.ros.org/en/noetic/api/sensor_msgs/html/msg/Image.html).
 
-* **lookout_infer_node**: It will synchronously subscript to previously defined topics and synthesise a series of novel views according to the size of the PoseArray received. These will be published in a ROS topic (defined in the launch file) [Image](http://docs.ros.org/en/noetic/api/sensor_msgs/html/msg/Image.html) of type during the inference.
+* [**lookout_infer_node**](https://github.com/mgrova/Look-Outside-Room/blob/ros_node/ros/scripts/lookout_infer_node.py): It will synchronously subscript to previously defined topics and synthesise a series of novel views according to the size of the PoseArray received. These will be published in a ROS topic (defined in the launch file) [Image](http://docs.ros.org/en/noetic/api/sensor_msgs/html/msg/Image.html) of type during the inference.
 
 Below is shown the ROS nodes diagram:
 
