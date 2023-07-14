@@ -4,7 +4,7 @@ In this repository you will find a series of tools to generate computer vision d
 
 ## Airsim Python API Installation
 
-TBC
+To simplify the process, the python API has been isolated in the following [repo](https://github.com/mgrova/airsim_python_api). Here are the instructions on how to install it.
 
 ## Airsim Computer Vision Configuration
 
@@ -41,7 +41,7 @@ Adding elements to the 'CaptureSettings' array, we will select which cameras we 
 
 ## Usage
 
-The most relevant scripts of this tool are described below. All of them have implemented the '--help' argument to know how to use.
+The most relevant scripts of this tool are described below. All of them have implemented the '--help' argument to know how to use. Before running some of the simulation managers with Airsim, you must run the simulation in Unreal.
 
 * **airsim_dataset_manager.py**: Main tool to take images from AirSim (must take the same images that were defined in the configuration file). Regarding the camera movement, it can be done through the keyboard or through a text file (see input arguments of the script). The poses are defined with respect to the ENU reference system on the coordinate of 'PlayerStart'.
 

@@ -104,7 +104,6 @@ if __name__ == "__main__":
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
 
-    index = 0
     plot_3d_axis(ax, p_tgt_wcs, np.array([0, 0, 0]), "target", 5.0)
     for uav_pos, gimbal_ori in zip(xt_wcs, gimbal_ea_wcs):
         save_pose_to_file(trajectory_poses_file, uav_pos, gimbal_ori)
@@ -112,8 +111,6 @@ if __name__ == "__main__":
         gimbal_ori[1] = gimbal_ori[1] + math.pi/2.0
         plot_3d_axis(ax, uav_pos, gimbal_ori, scale=3.0)
         
-        index = index + 1
-
     print(f"Saved trajectory of type '{args.traj_type}' with lenght {len(xt_wcs)} in {trajectory_poses_file}")
 
     # Set labels and title
