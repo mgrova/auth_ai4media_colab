@@ -53,6 +53,11 @@ cd /home/aiiacvmllab/UnrealEngine && \
 ./Engine/Binaries/ThirdParty/Mono/Linux/bin/mono Engine/Binaries/DotNET/UnrealBuildTool.exe Development Linux -Project=/home/aiiacvmllab/Documents/Unreal\ Projects/TestProject/TestProject.uproject -TargetType=Editor -Progress
 ```
 
+If you get the following error ('Unable to find: /usr/bin/mono'), you must install mono manually using this command:
+```
+sudo apt-get install mono-devel
+```
+
 After executing this command, we will run the editor again with our project. If everything went well, the UE4 editor will open normally.
 
 If we open the plugins manager (Edit/Plugins) and check that airsim is there, everything went correctly.
@@ -62,5 +67,6 @@ Congratulations, you have survived this!
 
 ## Configuring drone start and UE4 game mode
 
-<span style="color:red">*TODO: Hablar de que hay que cambiar el modo de juego por defecto a AirSimGameMode y definir el player start con pantallazos 
-del editor*</span>
+In the world settings widget, its neccesary to change the game mode to **AirSimGameMode** to be able to get information from the simulation.
+
+Furthermore, it is important to have a **PlayerStart** in the environment, as all airsim positions are referenced to this reference system.

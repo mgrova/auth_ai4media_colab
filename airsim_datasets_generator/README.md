@@ -2,6 +2,11 @@
 
 In this repository you will find a series of tools to generate computer vision datasets using AirSim and visualize them. 
 
+## Dependencies
+```
+pip3 install scipy pynput
+```
+
 ## Airsim Python API Installation
 
 To simplify the process, the python API has been isolated in the following [repo](https://github.com/mgrova/airsim_python_api). Here are the instructions on how to install it.
@@ -39,7 +44,9 @@ Adding elements to the 'CaptureSettings' array, we will select which cameras we 
 }
 ```
 
+
 ## Usage
+
 
 The most relevant scripts of this tool are described below. All of them have implemented the '--help' argument to know how to use. Before running some of the simulation managers with Airsim, you must run the simulation in Unreal.
 

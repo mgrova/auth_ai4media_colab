@@ -5,7 +5,7 @@
 
 When, after adding the airsim plugin to our project we get the following pop-up:
 
-*TODO: Add pop-up image*
+![popup rebuild](./images/popup_rebuild.png)
 
 The project should be recompiled as follows:
 
