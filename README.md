@@ -1,4 +1,4 @@
-# AI4MEDIA AUTH VISIT 
+# Photoconsistent and Trajectory Guided Novel-View Synthesis Tool for UAV Cinematography Based on Autoregressive Transformers
 
 This repo contains all the code developed during the AI4Media collaboration between AUTH and CATEC.
 
